@@ -1,0 +1,8 @@
+Disclaimer: GlucoSense AI is an educational project and is not intended for medical diagnosis or treatment. Always consult with a healthcare professional before making changes to your diabetes management.
+
+
+---
+
+### One quick tip for your "Better" Project:
+Since you are using an **LSTM**, your model likely needs a "warm-up" period of data before it can predic
+Since you are using an **LSTM**, your model likely needs a "warm-up" period of data before it can predict. Would you like me to help you write a **Python script to pre-process the raw data** into the 3D sequences ($Samples, Time Steps, Features$) that the LSTM requires?
