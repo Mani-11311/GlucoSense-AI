@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlucoSense AI - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+        body { background: #0D0F14; }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 209, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 209, 0.6); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .gauge-ring { animation: pulse-glow 3s ease-in-out infinite; }
+        .insight-card { animation: float 4s ease-in-out infinite; }
+        
+        .glass-card {
+            background: rgba(30, 35, 50, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .wave-container { position: relative; height: 120px; overflow: hidden; }
+        
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #1E2332; border-radius: 10px; }
+    </style>
+</head>
+<body class="h-full">
+    <div id="app-container" class="h-full w-full overflow-auto bg-gradient-to-b from-[#0D0F14] via-[#151822] to-[#1A1E2E]">
+        
+        <div class="max-w-md mx-auto min-h-full px-6 py-10 flex flex-col">
+            
+            <header class="flex items-center justify-between mb-10">
+                <div>
+                    <p class="text-gray-500 text-[10px] tracking-widest uppercase mb-1">Status: Online</p>
+                    <h1 class="text-white text-2xl font-bold tracking-tight">GlucoSense AI</h1>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-cyan-400 transition-all">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                    </button>
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 p-[2px]">
+                        <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center text-white text-xs font-bold">JD</div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="flex flex-col items-center mb-10">
+                <div class="gauge-ring relative w-52 h-52 rounded-full flex items-center justify-center bg-[#151822] border-[1px] border-white/5">
+                    <svg class="absolute inset-0 w-full h-full -rotate-90">
+                        <circle cx="104" cy="104" r="90" fill="none" stroke="#00FFD1" stroke-width="4" stroke-dasharray="565" stroke-dashoffset="150" stroke-linecap="round" class="opacity-80"/>
+                    </svg>
+                    <div class="relative z-10 text-center">
+                        <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Current</p>
+                        <p id="glucose-value" class="text-6xl font-light text-white tracking-tighter">118</p>
+                        <p class="text-gray-400 text-sm mt-1">mg/dL</p>
+                    </div>
+                </div>
+                
+                <div id="status-badge" class="mt-6 px-5 py-2 rounded-full glass-card flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> 
+                    <span id="trend-status" class="text-cyan-400 text-sm font-semibold tracking-wide">Stable Trend</span>
+                </div>
+            </section>
+
+            <section class="glass-
