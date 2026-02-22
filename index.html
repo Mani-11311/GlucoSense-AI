@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlucoSense AI - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom CSS for Project UI Effects */
+        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+        body { background: #0D0F14; color: white; margin: 0; }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 209, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 209, 0.5); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .gauge-ring { animation: pulse-glow 3s ease-in-out infinite; }
+        .insight-card { animation: float 5s ease-in-out infinite; }
+        
+        .glass-card {
+            background: rgba(30, 35, 50, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .wave-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 4s forwards ease-in-out;
+        }
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+    </style>
+</head>
+
+<body class="h-full">
+    <div id="app-container" class="h-full w-full overflow-auto bg-gradient-to-br from-[#0D0F14] via-[#151822] to-[#1A1E2E]">
+        
+        <div class="max-w-md mx-auto min-h-full px-6 py-10 flex flex-col">
+            
+            <header class="flex items-center justify-between mb-10">
+                <div>
+                    <p class="text-gray-500 text-[10px] tracking-widest uppercase mb-1">Microsoft Elevate Project</p>
+                    <h1 class="text-white text-2xl font-bold tracking-tight">GlucoSense <span class="text-cyan-400">AI</span></h1>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 p-[2px]">
+                    <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center text-xs font-bold">JD</div>
+                </div>
+            </header>
+
+            <section class="flex flex-col items-center mb-10">
+                <div class="gauge-ring relative w-52 h-52 rounded-full flex items-center justify-center bg-[#151822] border-[1px] border-white/5">
+                    <svg class="absolute inset-0 w-full h-full -rotate-90">
+                        <circle cx="104" cy="104" r="94" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
+                        <circle cx="104" cy="104" r="94" fill="none" stroke="#00FFD1" stroke-width="6" stroke-dasharray="590" stroke-dashoffset="180" stroke-linecap="round" class="opacity-80"/>
+                    </svg>
+                    <div class="relative z-10 text-center">
+                        <p class="text-gray-500 text-xs uppercase tracking-widest mb-1">Current</p>
+                        <p id="glucose-value" class="text-6xl font-light text-white tracking-tighter">118</p>
+                        <p class="text-gray-400 text-sm mt-1">mg/dL</p>
+                    </div>
+                </div>
+                
+                <div id="status-badge" class="mt-6 px-5 py-2 rounded-full glass-card flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> 
+                    <span id="trend-status" class="text-cyan-400 text-sm font-semibold">AI Prediction: Stable</span>
+                </div>
+            </section>
+
+            <section class="glass-card rounded-[2rem] p-6 mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-white text-sm font-semibold">4-Hour Forecast (LSTM)</h2>
+                    <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2 py-1 rounded">Live Model</span>
+                </div>
+                <div class="h-24 w-full">
+                    <svg viewBox="0 0 400 100" class="w-full h-full" preserveAspectRatio="none">
+                        <path d="M0 70 Q 100 20, 200 60 T 400 40" fill="none" stroke="#00FFD1" stroke-width="3" stroke-linecap="round" class="wave-path" />
+                        <circle cx="200" cy="60" r="4" fill="#00FFD1" />
+                    </svg>
+                </div>
+                <div class="flex justify-between text-[10px] text-gray-500 mt-2">
+                    <span>NOW</span><span>+1H</span><span>+2H</span><span>+3H</span><span>+4H</span>
+                </div>
+            </section>
+
+            <section class="space-y-4 flex-grow">
+                <h3 class="text-gray-500 text-[10px] uppercase tracking-widest font-bold">Proactive Guidance</h3>
+                
+                <div class="insight-card glass-card p-4 rounded-2xl flex items-center gap-4 border-l-4 border-cyan-400">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-400/10 flex items-center justify-center text-xl">💧</div>
+                    <div class="flex-grow">
+                        <p id="insight-text" class="text-white text-sm font-medium">Drink water: 15% spike predicted</p>
+                        <p class="text-gray-500 text-[10px]">Based on meal history</p>
+                    </div>
+                </div>
+
+                <div class="insight-card glass-card p-4 rounded-2xl flex items-center gap-4 border-l-4 border-purple-500" style="animation-delay: 0.5s">
+                    <div class="w-10 h-10 rounded-xl bg-purple-400/10 flex items-center justify-center text-xl">🚶</div>
+                    <div class="flex-grow">
+                        <p class="text-white text-sm font-medium">Suggestion: 10-min walk</p>
+                        <p class="text-gray-500 text-[10px]">To stabilize predicted trend</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function runAIEngine() {
+            const glucoseEl = document.getElementById('glucose-value');
+            const trendEl = document.getElementById('trend-status');
+            
+            setInterval(() => {
+                let current = parseInt(glucoseEl.innerText);
+                let predictedChange = Math.floor(Math.random() * 7) - 3;
+                let nextValue = current + predictedChange;
+                
+                glucoseEl.innerText = nextValue;
+                
+                if (nextValue > 130) {
+                    trendEl.innerText = "AI Prediction: Rising";
+                    trendEl.style.color = "#FFB800";
+                } else if (nextValue < 90) {
+                    trendEl.innerText = "AI Prediction: Falling";
+                    trendEl.style.color = "#FF6B6B";
+                } else {
+                    trendEl.innerText = "AI Prediction: Stable";
+                    trendEl.style.color = "#00FFD1";
+                }
+            }, 6000);
+        }
+        window.onload = runAIEngine;
+    </script>
+</body>
+</html>
