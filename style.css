@@ -1,0 +1,86 @@
+/* Custom CSS for GlucoSense AI Project */
+
+:root {
+    --bg-dark: #0D0F14;
+    --accent-cyan: #00FFD1;
+    --accent-purple: #A855F7;
+    --glass-bg: rgba(30, 35, 50, 0.6);
+    --border-white: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: white;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* 1. Dashboard Animations (System Result Feedback) */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 209, 0.2), 0 0 40px rgba(0, 255, 209, 0.1); }
+    50% { box-shadow: 0 0 35px rgba(0, 255, 209, 0.5), 0 0 60px rgba(0, 255, 209, 0.2); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes draw {
+    to { stroke-dashoffset: 0; }
+}
+
+/* 2. Component Styling */
+.gauge-ring {
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.insight-card {
+    animation: float 5s ease-in-out infinite;
+}
+
+/* Glassmorphism Effect for Proposed Solution UI */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-white);
+}
+
+/* LSTM Prediction Wave Styling */
+.wave-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 4s forwards ease-in-out;
+}
+
+/* 3. Gradient Accents */
+.gradient-border {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    padding: 2px;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Modern Scrollbar for Data Logs */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1E2332;
+    border-radius: 10px;
+}
